@@ -14,10 +14,10 @@
     </parent>
 
     <groupId>com.capstone</groupId>
-    <artifactId>my-app</artifactId>
+    <artifactId>DevOps-Maven-End-to-End</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>my-app</name>
+    <name>DevOps-Maven-End-to-End</name>
     <description>Capstone DevOps Project - Spring Boot REST App</description>
 
     <properties>
