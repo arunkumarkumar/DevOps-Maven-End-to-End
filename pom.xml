@@ -22,7 +22,7 @@
 
     <properties>
         <java.version>17</java.version>
-    <sonar.projectKey>arunkumarkumar_DevOps-Maven-End-to-End</sonar.projectKey>
+    <sonar.projectKey>DevOps-Maven-End-to-End</sonar.projectKey>
     <sonar.organization>arunkumarkumar</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
