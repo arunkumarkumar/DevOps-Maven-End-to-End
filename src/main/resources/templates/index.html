@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Capstone DevOps App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
+<header class="header">
+    <div class="header-content">
+        <div class="header-left">
+            <h1>🚀 Capstone DevOps App</h1>
+            <p>Spring Boot + Docker + Kubernetes + Harness + ArgoCD</p>
+        </div>
+        <div class="header-right">
+            <span class="badge" th:classappend="${environment == 'production'} ? 'badge-prod' : 'badge-dev'"
+                  th:text="${environment}">development</span>
+            <span class="version" th:text="'v' + ${appVersion}">v1.0.0</span>
+        </div>
+    </div>
+</header>
+
+<!-- ── Status Bar ─────────────────────────────────────────────────────────── -->
+<div class="status-bar">
+    <div class="status-item">
+        <span class="status-dot green"></span>
+        <span>App Status: Running</span>
+    </div>
+    <div class="status-item">
+        <span>📦 Total Students: </span>
+        <strong th:text="${totalCount}">0</strong>
+    </div>
+    <div class="status-item">
+        <a href="/actuator/health" target="_blank">🔗 Health Check</a>
+    </div>
+    <div class="status-item">
+        <a href="/actuator/prometheus" target="_blank">📊 Metrics</a>
+    </div>
+    <div class="status-item">
+        <a href="/api/students" target="_blank">🔌 REST API</a>
+    </div>
+</div>
+
+<!-- ── Main Content ────────────────────────────────────────────────────────── -->
+<main class="main">
+
+    <!-- Add Student Form -->
+    <section class="card">
+        <h2>➕ Add New Student</h2>
+        <form th:action="@{/ui/students}" th:object="${newStudent}" method="post" class="form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" th:field="*{name}" placeholder="e.g. Arun Kumar" required/>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" placeholder="e.g. arun@example.com" required/>
+                </div>
+                <div class="form-group">
+                    <label>Course</label>
+                    <input type="text" th:field="*{course}" placeholder="e.g. DevOps Engineering" required/>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" th:field="*{age}" placeholder="e.g. 25" min="18" max="60" required/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+    </section>
+
+    <!-- Students Table -->
+    <section class="card">
+        <h2>👨‍🎓 Student Records</h2>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Age</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.id}">1</td>
+                        <td th:text="${student.name}">Name</td>
+                        <td th:text="${student.email}">email</td>
+                        <td><span class="course-badge" th:text="${student.course}">Course</span></td>
+                        <td th:text="${student.age}">25</td>
+                        <td>
+                            <form th:action="@{/ui/students/{id}/delete(id=${student.id})}" method="post"
+                                  onsubmit="return confirm('Delete this student?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(students)}">
+                        <td colspan="6" class="empty-state">No students found. Add one above.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- API Reference Card -->
+    <section class="card">
+        <h2>🔌 REST API Endpoints</h2>
+        <div class="api-grid">
+            <div class="api-item get">
+                <span class="method">GET</span>
+                <code>/api/students</code>
+                <span>Get all students</span>
+            </div>
+            <div class="api-item get">
+                <span class="method">GET</span>
+                <code>/api/students/{id}</code>
+                <span>Get student by ID</span>
+            </div>
+            <div class="api-item post">
+                <span class="method">POST</span>
+                <code>/api/students</code>
+                <span>Create new student</span>
+            </div>
+            <div class="api-item put">
+                <span class="method">PUT</span>
+                <code>/api/students/{id}</code>
+                <span>Update student</span>
+            </div>
+            <div class="api-item delete">
+                <span class="method">DELETE</span>
+                <code>/api/students/{id}</code>
+                <span>Delete student</span>
+            </div>
+            <div class="api-item get">
+                <span class="method">GET</span>
+                <code>/api/health</code>
+                <span>App health status</span>
+            </div>
+            <div class="api-item get">
+                <span class="method">GET</span>
+                <code>/actuator/prometheus</code>
+                <span>Prometheus metrics</span>
+            </div>
+            <div class="api-item get">
+                <span class="method">GET</span>
+                <code>/actuator/health</code>
+                <span>Spring Boot health</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+    <p>Capstone DevOps Project &mdash; Spring Boot &bull; Docker &bull; Kubernetes &bull; Harness &bull; ArgoCD &bull; Istio &bull; Prometheus &bull; Grafana</p>
+</footer>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
