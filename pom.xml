@@ -25,7 +25,7 @@
   <sonar.organization>arunkumarkumar</sonar.organization>
   <sonar.projectKey>arunkumarkumar_DevOps-Maven-End-to-End</sonar.projectKey>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-  <sonar.java.binaries>target/classes</sonar.java.binaries>
+  <sonar.java.binaries>.</sonar.java.binaries>
     </properties>
 
     <dependencies>
