@@ -16,7 +16,7 @@ public class StudentService {
     private final AtomicLong idCounter = new AtomicLong(1);
 
     public StudentService() {
-        // Seed with some sample data on startup
+        // Seed with some sample data on startup as new
         students.add(new Student(idCounter.getAndIncrement(), "Arun Kumar",   "arun@example.com",   "DevOps Engineering", 26));
         students.add(new Student(idCounter.getAndIncrement(), "Priya Sharma", "priya@example.com",  "Cloud Computing",    24));
         students.add(new Student(idCounter.getAndIncrement(), "Ravi Patel",   "ravi@example.com",   "Java Development",   27));
