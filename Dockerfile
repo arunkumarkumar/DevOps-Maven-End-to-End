@@ -14,7 +14,7 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY --from=build /app/target/my-app-1.0.0.jar app.jar
+COPY --from=build /app/target/arunkumarkumar_DevOps-Maven-End-to-End-1.0.0.jar app.jar
 
 EXPOSE 8080
 
