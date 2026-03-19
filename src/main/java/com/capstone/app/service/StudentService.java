@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class StudentService {
 
-    // In-memory list — no database needed for capstone
+    // In-memory list — no database needed for capstone steps by arun
     private final List<Student> students = new ArrayList<>();
     private final AtomicLong idCounter = new AtomicLong(1);
 
